@@ -1,6 +1,6 @@
 class Api::MemesController < ApplicationController
 
-  before_action :authenticate_user, only: [:create, :update, :delete]
+  before_action :authenticate_user, except: [:index, :show]
 
   def index
     @memes = Meme.all
@@ -14,10 +14,10 @@ class Api::MemesController < ApplicationController
 
   def create
     @meme = Meme.new(
-      top_text = params[:top_text],
-      bottom_text = params[:bottom_text],
-      img = params[:img],
-      user_id = params[:user_id]
+      top_text: params[:top_text],
+      bottom_text: params[:bottom_text],
+      img: params[:img],
+      user_id: current_user.id
     )
 
     if @meme.save
