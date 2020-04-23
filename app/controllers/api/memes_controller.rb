@@ -1,4 +1,7 @@
 class Api::MemesController < ApplicationController
+
+  before_action :authenticate_user, only: [:create, :update, :delete]
+
   def index
     @memes = Meme.all
     render 'index.json.jb'
@@ -33,7 +36,7 @@ class Api::MemesController < ApplicationController
     if @meme.save
       render 'show.json.jb'
     else 
-      render json: {errors: @memes.errors.full_messages}, status: :unprocessable_entity
+      render json: {errors: @meme.errors.full_messages}, status: :unprocessable_entity
     end
   end
 
