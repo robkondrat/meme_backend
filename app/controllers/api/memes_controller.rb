@@ -3,7 +3,7 @@ class Api::MemesController < ApplicationController
   # before_action :authenticate_user, except: [:index, :show]
 
   def index
-    @memes = Meme.all
+    @memes = Meme.order("created_at DESC")
     render 'index.json.jb'
   end
 
